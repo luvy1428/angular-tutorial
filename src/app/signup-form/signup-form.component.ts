@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { AuthorService } from '../author.service';
 import { UsernameValidators } from './username.validator';
 
 @Component({
@@ -15,17 +16,44 @@ export class SignupFormComponent {
 
     //Multiple validation error
 
+    // form = new FormGroup({
+    //     username: new FormControl('', [
+    //         Validators.required,
+    //         Validators.minLength(3),
+    //         UsernameValidators.cannotContainSpace,
+    //     ],[ UsernameValidators.shouldBeUnique]),
+
+    //     password: new FormControl('', Validators.required)
+    // })
+
+    // get username() {
+    //     return this.form.get('username');
+    // }
+
+
+    //Nested form groups
+
     form = new FormGroup({
-        username: new FormControl('', [
-            Validators.required,
-            Validators.minLength(3),
-            UsernameValidators.cannotContainSpace,
-            UsernameValidators.shouldBeUnique
-        ]),
-        password: new FormControl('', Validators.required)
+        account : new FormGroup({
+            username : new FormControl(''),
+            password : new FormControl('')
+        })
     })
 
     get username() {
-        return this.form.get('username');
+        return this.form.get('account.username');
+    }
+
+   
+    login(){
+        //setting form level error
+        this.form.setErrors({ 
+            invalidLogin : false
+        })
+
+        // //control level form
+        // this.username.setErrors({
+        //     invalidLogin : true
+        // })
     }
 }

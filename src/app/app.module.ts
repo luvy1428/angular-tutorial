@@ -1,8 +1,9 @@
+import { AppErrorHandler } from './common/app-error-handler';
+import { PostService } from './services/post.service';
 
 import { BrowserModule } from '@angular/platform-browser';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { NgModule } from '@angular/core';
-
+import { ErrorHandler, NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { CourseComponent } from './course/course.component';
 import { CoursesComponent } from './courses.component';
@@ -19,6 +20,10 @@ import { ZippyComponent } from './zippy/zippy.component';
 import { ContactFormComponent } from './contact-form/contact-form.component';
 import { NewCourseFormComponent } from './new-course-form/new-course-form.component'
 import {SignupFormComponent} from './signup-form/signup-form.component';
+import { NewCourseForm2Component } from './new-course-form2/new-course-form2.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
+import { PostsComponent } from './posts/posts.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -35,15 +40,25 @@ import {SignupFormComponent} from './signup-form/signup-form.component';
     ZippyComponent,
     ContactFormComponent,
     NewCourseFormComponent,
-    SignupFormComponent
+    SignupFormComponent,
+    NewCourseForm2Component,
+    ChangePasswordComponent,
+    PostsComponent
 
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
-  providers: [CourseService,AuthorService],
+  providers: [
+    CourseService,
+    AuthorService,
+    PostService, 
+    // Telling wherever using ErrorHandler replace with AppErrorHandler
+    {provide: ErrorHandler, useClass: AppErrorHandler} 
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

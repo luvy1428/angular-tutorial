@@ -6,18 +6,20 @@ export class UsernameValidators{
         return null
     }
 
-    static shouldBeUnique(control : AbstractControl) : Promise<ValidationErrors | null>{
-       return new Promise((resolve, reject)=>{
-           setTimeout(()=>{           
-               if(control.value === 'mosh'){
-                   console.log('true')
-                   resolve({ shouldBeUnique : true});
-               }else{
-                 resolve(null);
-               }
-                    
-           },2000);     
-       })
+    static shouldBeUnique(control : AbstractControl) : Promise<ValidationErrors|null>{
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                if (control.value === 'mosh') {
+                    console.log('---matched--');
+                    resolve({ shouldBeUnique: true });
+                } else {
+                   resolve(null);
+                }
+            }, 1000);
+        });
        
     }
+
+
+    
 }
